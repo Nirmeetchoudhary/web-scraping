@@ -57,6 +57,7 @@ Uses `requests` to fetch page content and `BeautifulSoup` to extract data fields
 * Rating
 * Product Link
 
+```python
 import requests
 from bs4 import BeautifulSoup
 import numpy as np
@@ -95,6 +96,7 @@ for r in ratings:
 print("Link found:")
 for l in links:
     print("-", l.text)
+```
 
 ### 2️⃣ Data Cleaning (pandas)
 
