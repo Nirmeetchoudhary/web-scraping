@@ -57,6 +57,45 @@ Uses `requests` to fetch page content and `BeautifulSoup` to extract data fields
 * Rating
 * Product Link
 
+import requests
+from bs4 import BeautifulSoup
+import numpy as np
+import pandas as pd
+
+# Target search URL
+url = "https://www.flipkart.com/laptops/pr?sid=6bo,b5g&otracker=categorytree&fm=neo%2Fmerchandising&iid=M_d08fde46-7480-41fb-aae3-1f0842940f31_1_X1NCR146KC29_MC.HJZ2651EEY8B&otracker=hp_rich_navigation_8_1.navigationCard.RICH_NAVIGATION_Electronics~Laptop%2Band%2BDesktop_HJZ2651EEY8B&otracker1=hp_rich_navigation_PINNED_neo%2Fmerchandising_NA_NAV_EXPANDABLE_navigationCard_cc_8_L1_view-all&cid=HJZ2651EEY8B"
+
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+}
+
+response = requests.get(url, headers=headers)
+
+soup = BeautifulSoup(response.text, "html.parser")
+
+# Each product title is inside a specific class
+titles = soup.find_all("div", class_="KzDlHZ")
+
+
+print("Products found:")
+for t in titles:
+    print("-", t.text)
+
+prices = soup.find_all("div", class_="Nx9bqj")   # price class
+ratings = soup.find_all("div", class_="XQDdHH")  # rating class
+links = soup.select("a.CGtC98")
+
+
+print("Price found:")
+for p in prices:
+    print("-", p.text)
+print("rating found:")
+for r in ratings:
+    print("-", r.text)
+print("Link found:")
+for l in links:
+    print("-", l.text)
+
 ### 2️⃣ Data Cleaning (pandas)
 
 ✔ **Price Cleaning**
